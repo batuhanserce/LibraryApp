@@ -14,4 +14,7 @@ func Router(app *fiber.App) {
 	app.Get("/kitap/:id", handlers.KitapGetByID)
 	app.Post("/kitap", handlers.KitapAdd)
 
+	app.Get("/favori/:kullanici_id", handlers.FavoriGetAll)
+	app.Post("/favori", handlers.FavoriAdd)
+
 }
