@@ -7,6 +7,11 @@ import (
 
 func Router(app *fiber.App) {
 
-	app.Get("/login", handlers.Login)
+	app.Post("/login", handlers.Login)
+	app.Post("/sing-up", handlers.SingUp)
+
+	app.Get("/kitaplar", handlers.KitapGetAll)
+	app.Get("/kitap/:id", handlers.KitapGetByID)
+	app.Post("/kitap", handlers.KitapAdd)
 
 }
