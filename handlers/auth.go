@@ -16,8 +16,8 @@ func Login(c *fiber.Ctx) error {
 		return err
 	}
 	var dbModel models.Kullanici
-	err = database.DB().Model(&models.Kullanici{}).Where("eposta = ?").Find(&dbModel).Error
-	if err != nil {
+	err = database.DB().Where("eposta = ?", gelenModel.Eposta).Find(&dbModel).Error
+	if err != nil || dbModel.Eposta == "" {
 		return errors.New("Şifre veya eposta hatali")
 	}
 	if dbModel.Parola != utils.Sha256String(gelenModel.Parola) {

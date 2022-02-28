@@ -45,4 +45,5 @@ func AutoMigrate() {
 	db.AutoMigrate(&models.Kullanici{})
 	db.AutoMigrate(&models.Katagori{})
 	db.AutoMigrate(&models.Kitap{})
+	db.AutoMigrate(&models.Favori{})
 }

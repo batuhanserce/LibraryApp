@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 	"github.com/omerfruk/LibraryApp/database"
 	"github.com/omerfruk/LibraryApp/models"
 	"github.com/pkg/errors"
@@ -40,4 +40,17 @@ func KitapAdd(c *fiber.Ctx) error {
 		return errors.New("database error (kitap Add)")
 	}
 	return c.JSON(kitap)
+}
+
+func KitapDelete(c *fiber.Ctx) error {
+	var kitap models.Kitap
+	err := c.BodyParser(&kitap)
+	if err != nil {
+		return errors.New("body parser hatasi (kitap delete)")
+	}
+	err = database.DB().Model(&models.Kitap{}).Delete(&kitap).Error
+	if err != nil {
+		return errors.New("database error (kitap Add)")
+	}
+	return c.JSON(nil)
 }
