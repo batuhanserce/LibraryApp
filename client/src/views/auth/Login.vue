@@ -1,85 +1,128 @@
 <template>
-  <b-container>
-    <b-row class="vh-100" align-v="center" align-h="center">
-      <b-col sm="12" md="8" lg="8" xl="6">
-        <b-card no-body>
-          <div class="p-4 p-sm-5">
-            <!-- Logo -->
-            <div class="d-flex justify-content-center align-items-center pb-2 mb-4">
-              <div class="text-center d-flex">
-                <div class="text-center">
-                  <img src="../../../public/img/icon.png" width="250" height="250"/>
-                </div>
+<div class="bg">
+  <section class="Form">
+    <div class="container scrn ">
+      <div class="row no-gutters">
+        <div class="col-lg-5 p-0">
+          <img src="@/assets/login/book.png" class="img-fluid" alt="" />
+        </div>
+        <div class="col-lg-7 px-5 pt-5 pl-5" >
+          <h1 class="font-weight-bold py-3">Log-in</h1>
+          <h4 >Sign in to your account</h4>
+          <div>
+            <div class="form-row d-flex justify-content-start">
+              <div class=" col-lg-7">
+                <input
+                    name="Mail"
+                    type="email"
+                    v-model="model.eposta"
+                    placeholder="Email Adress"
+                    class="form-control my-3 p-4"
+                />
               </div>
             </div>
-            <!-- / Logo -->
-            <h5 class="text-center text-muted font-weight-normal mb-4">Libbrary App Login</h5>
-
-            <!-- Form -->
-            <form>
-              <b-form-group label="E-Mail">
-                <b-input v-model="model.eposta" placeholder="E-Mail" type="text"/>
-              </b-form-group>
-              <b-form-group label="Password">
-                <b-input v-model="model.parola" placeholder="Password" type="password"/>
-              </b-form-group>
-
-              <div class="d-flex justify-content-center align-items-center m-0">
-                <b-button type="button" @click="Giris" style="width: 25%;" class="mb-4" data-style="slide-right"
-                          variant="primary">
-                  Login
-                </b-button>
+            <div class="form-row d-flex justify-content-start">
+              <div class="col-lg-7 ">
+                <input
+                    name="password"
+                    type="password"
+                    v-model="model.parola"
+                    placeholder="********"
+                    class="form-control my-3 p-4"
+                />
               </div>
-            </form>
-            <!-- / Form -->
-
-            <b-card-footer class="py-3 px-4 px-sm-5">
-              <div class="text-center text-muted">
+            </div>
+            <div class="form-row d-flex justify-content-start">
+              <div class="col-lg-7">
+                <button @click="login" class="btn1 mt-3 mb-5">Login</button>
               </div>
-            </b-card-footer>
+            </div>
+            <p class="mt-5">No account? <a href="/signup">Create one!</a></p>
           </div>
-        </b-card>
-      </b-col>
-    </b-row>
-  </b-container>
+          </div>
+        </div>
+    </div>
+  </section>
+</div>
 </template>
 
 <script>
-
 import axios from "axios";
 
 export default {
-  name: "giris",
   data() {
     return {
-      model: {
-        eposta: "",
-        parola: "",
-      }
+      model:{
+      eposta:"",
+      parola:"",
+      },
+    }
+  },
+  mounted() {
+    if (localStorage.name) {
+      this.$router.push("/")
     }
   },
   methods: {
-    async Giris() {
-      try {
-        axios.post('http://127.0.0.1:3000/login', this.model)
-            .then((res) => {
-              console.log(res)
-            })
-            .catch((error) => {
-             console.log("lan",error)
-            }).finally(() => {
-          console.log("bura medem bar")
-        });
-      } catch (e) {
-        console.error(e)
+    async login(){
+      let res = await axios.post('http://127.0.0.1:3000/login',this.model)
+      if (res.data){
+        localStorage.setItem("name",res.data.isim)
+        localStorage.setItem("surname",res.data.soyisim)
+        localStorage.setItem("email",res.data.eposta)
+       await this.$router.push("/")
+      }else{
+        this.$bvToast.toast("e-mail or password not true", {
+          title:'Error',
+          variant:'danger'})
       }
-    },
+    }
   },
-  created() {
-
-  }
 }
 </script>
 
-<style scoped>
+<style >
+.bg {
+  height: 100vh;
+  background: url('../../assets/login/login.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size:100% 100%;
+  background-size: cover;
+}
+* {
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.scrn {
+  padding-top: 7%;
+}
+.row {
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 12px 12px 22px grey;
+}
+img {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.btn1 {
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.btn1:hover {
+  background-color: white;
+  border: 1px solid;
+  color: black;
+}
+
 </style>
