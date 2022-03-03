@@ -10,10 +10,10 @@ func Router(app *fiber.App) {
 	app.Post("/login", handlers.Login)
 	app.Post("/sign_up", handlers.SingUp)
 
-	app.Get("/kitaplar", handlers.KitapGetAll)
-	app.Get("/kitap/:id", handlers.KitapGetByID)
-	app.Post("/kitap", handlers.KitapAdd)
-	app.Delete("/kitap", handlers.KitapDelete)
+	app.Get("/books", handlers.KitapGetAll)
+	app.Get("/book/:id", handlers.KitapGetByID)
+	app.Post("/book", handlers.KitapAdd)
+	app.Delete("/book", handlers.KitapDelete)
 
 	app.Get("/favori/:kullanici_id", handlers.FavoriGetAll)
 	app.Post("/favori", handlers.FavoriAdd)

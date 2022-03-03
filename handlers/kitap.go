@@ -9,7 +9,7 @@ import (
 
 func KitapGetAll(c *fiber.Ctx) error {
 	kitaplar := make([]models.Kitap, 0)
-	err := database.DB().Model(&models.Kitap{}).Find(&kitaplar).Error
+	err := database.DB().Model(&models.Kitap{}).Preload("Katagori").Find(&kitaplar).Error
 	if err != nil {
 		return errors.New("Database hatasi (KitapGetAll)")
 	}

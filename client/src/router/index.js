@@ -22,6 +22,11 @@ export const router = new VueRouter({
             name: 'signup',
             component: () => import('@/views/auth/Signup')
         },
+        {
+            path: '/books',
+            name: 'books',
+            component: () => import('@/views/book/books')
+        },
 
         {
             path: '*',
