@@ -15,6 +15,11 @@ func Router(app *fiber.App) {
 	app.Post("/book", handlers.KitapAdd)
 	app.Delete("/book", handlers.KitapDelete)
 
+	app.Get("/katagori", handlers.KatagoriGetAll)
+	app.Get("/katagori/:id", handlers.KatagoriGetByID)
+	app.Post("/katagori", handlers.KatagoriAdd)
+	app.Delete("/katagori", handlers.KatagoriDelete)
+
 	app.Get("/favori/:kullanici_id", handlers.FavoriGetAll)
 	app.Post("/favori", handlers.FavoriAdd)
 	app.Delete("/favori", handlers.FavoriDelete)

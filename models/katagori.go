@@ -4,5 +4,5 @@ import "gorm.io/gorm"
 
 type Katagori struct {
 	gorm.Model
-	Cinsi string
+	Cinsi string `json:"cinsi"`
 }
