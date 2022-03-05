@@ -35,11 +35,27 @@ func KitapAdd(c *fiber.Ctx) error {
 	if err != nil {
 		return errors.New("body parser hatasi (kitap Add)")
 	}
-	err = database.DB().Model(&models.Kitap{}).Create(&kitap).Error
+	if kitap.ID == 0 {
+		err = database.DB().Model(&models.Kitap{}).Create(&kitap).Error
+		if err != nil {
+			return errors.New("database error (kitap Add)")
+		}
+		return c.JSON(kitap)
+	}
+	var dbGelen models.Kitap
+	err = database.DB().Where("id = ?", kitap.ID).Find(&dbGelen).Error
 	if err != nil {
 		return errors.New("database error (kitap Add)")
 	}
-	return c.JSON(kitap)
+	dbGelen.Adi = kitap.Adi
+	dbGelen.Yazar = kitap.Yazar
+	dbGelen.KatagoriID = kitap.KatagoriID
+
+	err = database.DB().Save(&dbGelen).Error
+	if err != nil {
+		return errors.New("database error (kitap Add)")
+	}
+	return c.JSON(dbGelen)
 }
 
 func KitapDelete(c *fiber.Ctx) error {
