@@ -37,6 +37,11 @@ export const router = new VueRouter({
             name: 'user',
             component: () => import('@/views/user/user')
         },
+        {
+            path: '/favori',
+            name: 'favori',
+            component: () => import('@/views/favori/favori')
+        },
 
         {
             path: '*',

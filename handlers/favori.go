@@ -8,6 +8,15 @@ import (
 )
 
 func FavoriGetAll(c *fiber.Ctx) error {
+	favoriler := make([]models.Favori, 0)
+	err := database.DB().Model(&models.Favori{}).Preload("Kitap").Preload("Kullanici").Find(&favoriler).Error
+	if err != nil {
+		return errors.New("database error (favori get all)")
+	}
+	return c.JSON(favoriler)
+}
+
+func FavoriGetAllByKullaniciId(c *fiber.Ctx) error {
 	kullaniciID, err := c.ParamsInt("kullanici_id")
 	if err != nil {
 		return errors.New("Pars int hatasi (Favori get all)")

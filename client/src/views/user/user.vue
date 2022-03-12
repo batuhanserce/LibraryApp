@@ -1,9 +1,11 @@
 <template>
   <div>
+    <navbar></navbar>
+
     <b-card
-        class="text-center m-5 "
+        class="m-5"
         header-tag="header"
-        footer="Card Footer"
+        footer="BatuhanSerce"
         border-variant="primary"
         header="User "
         header-bg-variant="primary"
@@ -11,18 +13,29 @@
         align="center"
         footer-tag="footer"
     >
-      <b-card no-body class="overflow-hidden d-flex justify-content-center" style="max-width: 540px;">
-        <b-row no-gutters>
-          <b-col md="6">
-            <b-card-img src="" alt="Image" class="rounded-0"></b-card-img>
+      <b-card no-body class="d-flex justify-content-around">
+        <b-row >
+          <b-col>
+            <b-form-group label="Name">
+              <b-form-input v-model="row.isim" placeholder="Name"></b-form-input>
+            </b-form-group>
           </b-col>
-          <b-col md="6">
-            <b-card-body title="Horizontal Card">
-              <b-card-text>
-                This is a wider card with supporting text as a natural lead-in to additional content.
-                This content is a little bit longer.
-              </b-card-text>
-            </b-card-body>
+          <b-col>
+            <b-form-group label="Surname">
+              <b-form-input v-model="row.soyisim" placeholder="Surname"></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row >
+          <b-col>
+            <b-form-group label="EMail">
+              <b-form-input v-model="row.eposta" placeholder="E-Mail"></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Password">
+              <b-form-input v-model="row.parola" placeholder="Password"></b-form-input>
+            </b-form-group>
           </b-col>
         </b-row>
       </b-card>
@@ -33,13 +46,23 @@
 <script>
 
 import axios from "axios";
+import navbar from "@/component/navbar";
 
 export default {
   name: "user",
+  components:{navbar},
   data() {
     return {
       user_name: "",
       user_id: 0,
+      user:{
+        id:"",
+        isim:"",
+        soyisim:"",
+        parola:"",
+        eposta:"",
+        kitaplar:[]
+      },
       row: {},
     }
   },
@@ -55,7 +78,6 @@ export default {
         let res = await axios.get("http://127.0.0.1:3000/user/" + this.user_id)
         if (res.data) {
           this.row = res.data
-          console.log(this.row)
         }
 
       } catch (e) {

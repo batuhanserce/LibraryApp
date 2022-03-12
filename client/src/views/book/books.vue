@@ -143,7 +143,7 @@ export default {
   methods: {
     async getBook() {
       try {
-        let res = await axios.get("http://127.0.0.1:3000/books")
+        let res = await axios.get("http://127.0.0.1:3000/book")
         if (res.data) {
           this.rows = res.data
         }
@@ -170,6 +170,7 @@ export default {
       }
     },
     async yeniClick() {
+      this.model={}
       this.$bvModal.show("editModal");
     },
     async duzenleClick(model) {
@@ -179,6 +180,7 @@ export default {
     async kaydetClick() {
       this.isBusy = true;
       try {
+        console.log(this.model)
         await axios.post("http://localhost:3000/book", this.model);
         this.$bvModal.hide("editModal");
         this.$bvToast.toast("Book Created", {
