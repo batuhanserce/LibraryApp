@@ -27,6 +27,16 @@ export const router = new VueRouter({
             name: 'books',
             component: () => import('@/views/book/books')
         },
+        {
+            path: '/users',
+            name: 'users',
+            component: () => import('@/views/user/users')
+        },
+        {
+            path: '/user/:id',
+            name: 'user',
+            component: () => import('@/views/user/user')
+        },
 
         {
             path: '*',

@@ -8,7 +8,10 @@ import VueGoodTablePlugin from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import vSelect from 'vue-select'
 
+
+Vue.component('v-select', vSelect)
 Vue.config.productionTip = false
 
 Vue.use(VueGoodTablePlugin);
