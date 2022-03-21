@@ -28,6 +28,11 @@ export const router = new VueRouter({
             component: () => import('@/views/book/books')
         },
         {
+            path: '/book/:id',
+            name: 'book',
+            component: () => import('@/views/book/book')
+        },
+        {
             path: '/users',
             name: 'users',
             component: () => import('@/views/user/users')
