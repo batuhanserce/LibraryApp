@@ -67,7 +67,9 @@ export default {
     async login(){
       let res = await axios.post('http://127.0.0.1:3000/login',this.model)
       if (res.data){
+        console.log(res.data)
         localStorage.setItem("name",res.data.isim)
+        localStorage.setItem("id",res.data.id)
         localStorage.setItem("surname",res.data.soyisim)
         localStorage.setItem("email",res.data.eposta)
        await this.$router.push("/")

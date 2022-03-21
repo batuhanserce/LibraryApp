@@ -22,7 +22,7 @@ func KitapGetByID(c *fiber.Ctx) error {
 		return errors.New("database hatasi (Kitap Get By id )")
 	}
 	var kitap models.Kitap
-	err = database.DB().Model(&models.Kitap{}).Where("id = ?", id).Find(&kitap).Error
+	err = database.DB().Model(&models.Kitap{}).Where("id = ?", id).Preload("Katagori").Find(&kitap).Error
 	if err != nil {
 		return errors.New("Database hatasi (Kitap Get By id )")
 	}
