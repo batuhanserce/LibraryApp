@@ -6,6 +6,7 @@ import (
 	"github.com/omerfruk/LibraryApp/models"
 	"github.com/omerfruk/LibraryApp/utils"
 	"github.com/omerfruk/LibraryApp/viewmodels"
+	"strconv"
 )
 
 func Login(c *fiber.Ctx) error {
@@ -23,6 +24,7 @@ func Login(c *fiber.Ctx) error {
 		return c.JSON(nil)
 	}
 	m := make(map[string]string)
+	m["id"] = strconv.Itoa(int(dbModel.ID))
 	m["isim"] = dbModel.Isim
 	m["soyisim"] = dbModel.Soyisim
 	m["eposta"] = dbModel.Eposta
