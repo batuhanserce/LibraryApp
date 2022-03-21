@@ -26,6 +26,7 @@ func Router(app *fiber.App) {
 	app.Delete("/user", handlers.KullaniciDelete)
 
 	app.Get("/favori", handlers.FavoriGetAll)
+	app.Get("/favori/:kitap_id/:kullanici_id", handlers.FavoriGetByUserID)
 	app.Get("/favori/:kullanici_id", handlers.FavoriGetAllByKullaniciId)
 	app.Post("/favori", handlers.FavoriAdd)
 	app.Delete("/favori", handlers.FavoriDelete)

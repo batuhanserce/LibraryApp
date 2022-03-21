@@ -16,9 +16,7 @@
           }"
           :columns="columns"
           :rows="rows">
-        <div slot="table-actions" class="d-flex m-2">
-          <b-btn variant="primary" @click="yeniClick"> <b-icon  class="mx-2" icon="people" font-scale="1"></b-icon>Add User</b-btn>
-        </div>
+
         <div slot="emptystate">
           <b>Arama Kriterine Uygun Kayıt Bulunamadı</b>
         </div>
@@ -40,14 +38,6 @@
           <span v-else> {{ props.formattedRow[props.column.field] }} </span>
         </template>
       </vue-good-table>
-      <b-modal id="editModal" size="lg" hide-footer>
-        <div slot="modal-title">
-          {{ model.id === 0 ? "Yeni" : "" }} {{ isim }} {{ model.id === 0 ? "" : "Güncelle" }}
-          <br />
-        </div>
-        <b-card class="mb-3">
-        </b-card>
-      </b-modal>
     </div>
   </div>
 </template>
@@ -124,14 +114,13 @@ export default {
         if (res.data) {
           this.rows = res.data
         }
-        console.log(res.data)
-
       } catch (e) {
         this.$bvToast.toast("User not come", {
           title:'Error',
           variant:'danger'})
       }
     },
+
     async deleteClick(model){
       this.isBusy = true
       try {
