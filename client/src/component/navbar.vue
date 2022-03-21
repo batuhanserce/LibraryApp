@@ -1,6 +1,6 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="success" class="navbar-horizontal">
-      <b-navbar-brand href="#">Liberary App</b-navbar-brand>
+      <b-navbar-brand to="/">Liberary App</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -26,12 +26,12 @@
             </li>
             <b-nav-item-dropdown right>
               <template v-slot:button-content>
-                <span class="nav-link-inner--text">Settings</span>
+                <span class="nav-link-inner--text">Other</span>
               </template>
               <b-dropdown-item href="#">bla bla</b-dropdown-item>
               <b-dropdown-item href="#">Another action</b-dropdown-item>
               <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item variant="danger">Something else here</b-dropdown-item>
+              <b-dropdown-item variant="danger" @click="cikis">Log out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-nav-form>
 
@@ -42,7 +42,16 @@
 
 <script>
 export default {
-  name: "navbar"
+  name: "navbar",
+  methods:{
+    cikis(){
+      localStorage.removeItem("name")
+      localStorage.removeItem("id")
+      localStorage.removeItem("surname")
+      localStorage.removeItem("email")
+      this.$router.push("/login")
+    },
+  },
 }
 </script>
 
