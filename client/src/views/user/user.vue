@@ -5,7 +5,7 @@
     <b-card
         class="m-5"
         header-tag="header"
-        footer="BatuhanSerce"
+        :footer="row.isim"
         border-variant="primary"
         header="User "
         header-bg-variant="primary"

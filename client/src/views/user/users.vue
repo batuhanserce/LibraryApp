@@ -17,7 +17,10 @@
           :columns="columns"
           :rows="rows">
         <div slot="table-actions" class="d-flex m-2">
-          <b-btn variant="primary" @click="yeniClick"> <b-icon  class="mx-2" icon="people" font-scale="1"></b-icon>Add User</b-btn>
+          <b-btn variant="primary" @click="yeniClick">
+            <b-icon class="mx-2" icon="people" font-scale="1"></b-icon>
+            Add User
+          </b-btn>
         </div>
         <div slot="emptystate">
           <b>Arama Kriterine Uygun Kayıt Bulunamadı</b>
@@ -28,6 +31,7 @@
             <b-col class="d-flex justify-content-around">
             <b-btn pill variant="success" @click="duzenleClick(props.row)">Update</b-btn>
             <b-btn pill variant="danger" @click="deleteClick(props.row)">Delete</b-btn>
+            <b-btn pill variant="info" :to="'user/'+props.row.ID"> kullaniciya git</b-btn>
             </b-col>
             </span>
           <span v-if="props.column.field === 'katagori_id'">
@@ -39,41 +43,30 @@
       <b-modal id="editModal" size="lg" hide-footer>
         <div slot="modal-title">
           {{ model.id === 0 ? "Yeni" : "" }} {{ isim }} {{ model.id === 0 ? "" : "Güncelle" }}
-          <br />
+          <br/>
         </div>
         <b-card class="mb-3">
           <b-form-row>
             <b-form-group label="Name" class="col">
-              <b-input :disabled="isBusy"  v-model.trim="model.isim" />
+              <b-input :disabled="isBusy" v-model.trim="model.isim"/>
             </b-form-group>
           </b-form-row>
           <b-form-row>
             <b-form-group label="Surname" class="col">
-              <b-input :disabled="isBusy"  v-model.trim="model.soyisim" />
+              <b-input :disabled="isBusy" v-model.trim="model.soyisim"/>
             </b-form-group>
           </b-form-row>
           <b-form-row>
             <b-form-group label="E-Mail" class="col">
-              <b-input :disabled="isBusy"  v-model.trim="model.eposta" />
+              <b-input :disabled="isBusy" v-model.trim="model.eposta"/>
             </b-form-group>
           </b-form-row>
           <b-form-row>
             <b-form-group label="Password" class="col">
-              <b-input :disabled="isBusy"  v-model.trim="model.parola" />
+              <b-input :disabled="isBusy" v-model.trim="model.parola"/>
             </b-form-group>
           </b-form-row>
-          <b-form-row>
-            <b-form-group label="Favori Kitaplar">
-              <v-select
-                  label="isim"
-                  multiple="true"
-                  :options="kitaplar"
-                  v-model="model.kullanici_kitap"
-
-              ></v-select>
-            </b-form-group>
-          </b-form-row>
-          <hr />
+          <hr/>
           <b-form-row>
             <b-form-group class="col text-right">
               <b-button @click="kaydetClick" :disabled="isBusy" variant="success">{{ "Kaydet" }}</b-button>
@@ -97,9 +90,9 @@ export default {
   },
   data() {
     return {
-      isim:"user",
-      isBusy:false,
-      katagoriler:[],
+      isim: "user",
+      isBusy: false,
+      katagoriler: [],
       columns: [
         {
           label: 'Name',
@@ -136,45 +129,25 @@ export default {
           },
         },
         {
-          label:'İşlemler',
-          field:'islem',
+          label: 'İşlemler',
+          field: 'islem',
         },
       ],
-      model:{
-        id:"",
-        isim:"",
-        soyisim:"",
-        eposta:"",
-        parola:"",
-        kullanici_kitap:[],
+      model: {
+        id: "",
+        isim: "",
+        soyisim: "",
+        eposta: "",
+        parola: "",
+        kullanici_kitap: [],
       },
       rows: [],
-      kitaplar:[],
     }
   },
   async created() {
     await this.getUsers();
-    await this.getBooks();
   },
   methods: {
-    async getBooks(){
-      this.isBusy = true
-      try{
-        this.kitaplar=[]
-        let res = await axios.get("http://127.0.0.1:3000/book")
-        if (res.data) {
-         this.kitaplar=  res.data.map(x => {
-            return {isim: x.adi +" - ("+x.yazar+")",id:x.ID}
-          })
-
-        }
-      }catch (e) {
-        this.$bvToast.toast("User not come", {
-          title:'Error',
-          variant:'danger'})
-      }
-      this.isBusy = false
-    },
     async getUsers() {
       try {
         let res = await axios.get("http://127.0.0.1:3000/user")
@@ -184,16 +157,17 @@ export default {
 
       } catch (e) {
         this.$bvToast.toast("User not come", {
-          title:'Error',
-          variant:'danger'})
+          title: 'Error',
+          variant: 'danger'
+        })
       }
     },
     async yeniClick() {
-      this.model.isim="";
-      this.model.soyisim="";
-      this.model.eposta="";
-      this.model.parola="";
-      this.model.kullanici_kitap =[];
+      this.model.isim = "";
+      this.model.soyisim = "";
+      this.model.eposta = "";
+      this.model.parola = "";
+      this.model.kullanici_kitap = [];
       this.$bvModal.show("editModal");
     },
     async duzenleClick(model) {
@@ -206,26 +180,29 @@ export default {
         await axios.post("http://localhost:3000/user", this.model);
         this.$bvModal.hide("editModal");
         this.$bvToast.toast("User Created", {
-          title:'Success',
-          variant:'success'})
+          title: 'Success',
+          variant: 'success'
+        })
         await this.getUser();
       } catch (e) {
         console.error(e);
       }
       this.isBusy = false;
     },
-    async deleteClick(model){
+    async deleteClick(model) {
       this.isBusy = true
       try {
         await axios.delete("http://localhost:3000/user", {data: model});
         this.$bvToast.toast("user Deleted", {
-          title:'Success',
-          variant:'success'})
+          title: 'Success',
+          variant: 'success'
+        })
         await this.getUser();
-      }catch (e) {
+      } catch (e) {
         this.$bvToast.toast(e, {
-          title:'Error',
-          variant:'danger'})
+          title: 'Error',
+          variant: 'danger'
+        })
       }
     },
   },
