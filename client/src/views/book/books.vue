@@ -51,6 +51,18 @@
             <b-form-group label="Yazar" class="col">
               <b-input :disabled="isBusy"  v-model.trim="model.yazar" />
             </b-form-group>
+
+          </b-form-row>
+          <b-form-row>
+            <b-form-group label="Özet" class="col">
+              <b-form-textarea
+                  v-model="model.ozet"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"
+              ></b-form-textarea>
+            </b-form-group>
+
           </b-form-row>
           <b-form-row>
             <b-form-group label="Katagori" class="col">
@@ -131,6 +143,7 @@ export default {
         id:"",
         adi:"",
         yazar:"",
+        ozet:"",
         katagori_id:0,
       },
       rows: [],

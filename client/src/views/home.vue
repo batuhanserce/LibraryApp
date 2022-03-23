@@ -54,6 +54,9 @@ export default {
     }
   },
   async created() {
+    if (!localStorage.name) {
+      this.$router.push("/login")
+    }
     await this.getBooks();
   },
   methods:{

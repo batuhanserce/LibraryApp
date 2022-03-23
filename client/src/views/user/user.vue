@@ -56,7 +56,7 @@ export default {
       user_name: "",
       user_id: 0,
       user:{
-        id:"",
+        id:0,
         isim:"",
         soyisim:"",
         parola:"",

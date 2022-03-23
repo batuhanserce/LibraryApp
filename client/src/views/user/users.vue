@@ -134,7 +134,7 @@ export default {
         },
       ],
       model: {
-        id: "",
+        id: 0,
         isim: "",
         soyisim: "",
         eposta: "",
@@ -179,11 +179,12 @@ export default {
       try {
         await axios.post("http://localhost:3000/user", this.model);
         this.$bvModal.hide("editModal");
+        await this.getUser();
         this.$bvToast.toast("User Created", {
           title: 'Success',
           variant: 'success'
         })
-        await this.getUser();
+
       } catch (e) {
         console.error(e);
       }
@@ -193,6 +194,7 @@ export default {
       this.isBusy = true
       try {
         await axios.delete("http://localhost:3000/user", {data: model});
+        await this.getUsers()
         this.$bvToast.toast("user Deleted", {
           title: 'Success',
           variant: 'success'
