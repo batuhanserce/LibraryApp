@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "simple-vue-validator": "^0.16.0",
-    "vue-axios": "^3.4.1",
-    "vue-select": "^3.18.3"
-  }
-}
