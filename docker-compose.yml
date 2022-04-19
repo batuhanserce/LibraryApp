@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  vue:
+    image: vue
+    ports:
+      - 8080:8080
+
+  backend:
+    image: go
+    ports:
+      - 3000:3000
+    
