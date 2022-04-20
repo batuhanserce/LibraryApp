@@ -14,13 +14,14 @@ services:
       - 3000:3000
 
   db:
-    image: postgres:14.1-alpine
+    image: postgres
     restart: always
-    environment:
-      - POSTGRES_DB=library
-      - POSTGRES_HOST=library
-      - POSTGRES_USER=library
-      - POSTGRES_PASSWORD=library123
+    container_name: postgresql
     ports:
-      - '6432:5432'
-    
+      - 5431:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+  
