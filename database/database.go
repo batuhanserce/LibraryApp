@@ -10,10 +10,10 @@ import (
 )
 
 const (
-	HOST     = "localhost"
+	HOST     = "db"
 	DATABASE = "library"
 	USER     = "library"
-	PASSWORD = "library123"
+	PASSWORD = "library"
 )
 
 var db *gorm.DB
