@@ -3,11 +3,24 @@ version: '3.1'
 services:
   vue:
     image: vue
+    build: ./client/
     ports:
       - 8080:8080
 
   backend:
     image: go
+    build: .
     ports:
       - 3000:3000
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=library
+      - POSTGRES_HOST=library
+      - POSTGRES_USER=library
+      - POSTGRES_PASSWORD=library123
+    ports:
+      - '6432:5432'
     

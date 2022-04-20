@@ -8,8 +8,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o temp
+RUN go build -o main-app
 
 EXPOSE 3000
 
-ENTRYPOINT [ "./temp" ]
+ENTRYPOINT [ "./main-app" ]
