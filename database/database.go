@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"github.com/omerfruk/LibraryApp/models"
+	"github.com/omerfruk/LibraryApp/utils"
 	"github.com/pkg/errors"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -46,4 +47,29 @@ func AutoMigrate() {
 	db.AutoMigrate(&models.Katagori{})
 	db.AutoMigrate(&models.Kitap{})
 	db.AutoMigrate(&models.Favori{})
+}
+
+func DefaultUserCreate() {
+	admin := models.Kullanici{
+		Isim:    "Admin",
+		Soyisim: "Admin",
+		Eposta:  "admin@mail.com",
+		Parola:  utils.Sha256String("admin123"),
+	}
+	err := DB().Where("eposta = ?", admin.Eposta).FirstOrCreate(&admin).Error
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	batu := models.Kullanici{
+		Isim:    "Batuhan",
+		Soyisim: "Serçe",
+		Eposta:  "batuhan@mail.com",
+		Parola:  utils.Sha256String("batuhan123"),
+	}
+	err = DB().Where("eposta = ?", batu.Eposta).FirstOrCreate(&batu).Error
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 }

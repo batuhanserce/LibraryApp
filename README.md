@@ -5,11 +5,13 @@
 
 localhost ta oluşturulacak 
 
+>host: db
+ 
 >user: library
 
 >database: library
 
->user pass : library123 
+>user pass : library
 
 şeklinde db oluşturup default olarak baglantı kurabilirsiniz gerektiği takdirde 
 kendi isteğinize göre database te bulunan config dosyalarını değiştirebilirsiniz 

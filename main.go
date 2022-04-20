@@ -23,6 +23,7 @@ func main() {
 	database.ConnectDB()
 	fmt.Println("DB connected")
 	database.AutoMigrate()
+	database.DefaultUserCreate()
 
 	routers.Router(app)
 	port := "3000"
