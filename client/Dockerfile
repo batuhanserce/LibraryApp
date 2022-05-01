@@ -1,5 +1,8 @@
 FROM node:lts-alpine
 
+# install simple http server for serving static content
+RUN npm install -g http-server
+
 # make the 'app' folder the current working directory
 WORKDIR /app
 
@@ -7,14 +10,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # install project dependencies
-RUN yarn install
+RUN npm install
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
 # build app for production with minification
-RUN yarn build
+RUN npm run build
 
 EXPOSE 8080
-
-ENTRYPOINT yarn serve
+CMD [ "http-server", "dist" ]
