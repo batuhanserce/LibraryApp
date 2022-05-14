@@ -11,12 +11,12 @@ services:
     image: go
     build: .
     depends_on:
-      - db
+      - go_db
       - vue
     ports:
       - 3000:3000
 
-  db:
+  go_db:
     image: postgres
     restart: always
     container_name: postgresql

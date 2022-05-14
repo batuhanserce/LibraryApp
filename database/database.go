@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+
 	"github.com/omerfruk/LibraryApp/models"
 	"github.com/omerfruk/LibraryApp/utils"
 	"github.com/pkg/errors"
@@ -11,7 +12,7 @@ import (
 )
 
 const (
-	HOST     = "db"
+	HOST     = "go_db"
 	DATABASE = "library"
 	USER     = "library"
 	PASSWORD = "library"
