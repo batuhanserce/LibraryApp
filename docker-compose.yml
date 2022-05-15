@@ -5,18 +5,18 @@ services:
     image: vue
     build: ./client/
     ports:
-      - 80:8080
+      - 80:80
 
   backend:
     image: go
     build: .
     depends_on:
-      - go_db
+      - pg_db
       - vue
     ports:
       - 3000:3000
 
-  go_db:
+  pg_db:
     image: postgres
     restart: always
     container_name: postgresql
@@ -26,4 +26,8 @@ services:
       - POSTGRES_PASSWORD=library
       - POSTGRES_DB=library
       - POSTGRES_USER=library
-  
+    volumes:
+      - pg_db:/var/lib/postgresql/data
+volumes:
+  pg_db:
+    driver: local
