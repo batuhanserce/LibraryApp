@@ -160,7 +160,6 @@ export default {
         if (res.data) {
           this.rows = res.data
         }
-
       } catch (e) {
         this.$bvToast.toast("Books not come", {
           title:'Error',
@@ -193,7 +192,6 @@ export default {
     async kaydetClick() {
       this.isBusy = true;
       try {
-        console.log(this.model)
         await axios.post("http://localhost:3000/book", this.model);
         this.$bvModal.hide("editModal");
         this.$bvToast.toast("Book Created", {

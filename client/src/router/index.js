@@ -47,6 +47,11 @@ export const router = new VueRouter({
             name: 'favori',
             component: () => import('@/views/favori/favori')
         },
+        {
+            path: '/katagori',
+            name: 'katagori',
+            component: () => import('@/views/katagori/katagori')
+        },
 
         {
             path: '*',

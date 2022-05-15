@@ -19,23 +19,14 @@
         <div slot="table-actions" class="d-flex m-2">
           <b-btn variant="primary" @click="yeniClick">
             <b-icon class="mx-2" icon="people" font-scale="1"></b-icon>
-            Add User
+            Add Katagori
           </b-btn>
         </div>
         <div slot="emptystate">
           <b>Arama Kriterine Uygun Kayıt Bulunamadı</b>
         </div>
         <template slot="table-row" slot-scope="props">
-          <span v-if="props.column.field === 'islem'">
-            <b-col class="d-flex justify-content-around">
-            <b-btn pill variant="success" @click="duzenleClick(props.row)">Update</b-btn>
-            <b-btn pill variant="danger" @click="deleteClick(props.row)">Delete</b-btn>
-            <b-btn pill variant="info" :to="'user/'+props.row.ID"> kullaniciya git</b-btn>
-            </b-col>
-            </span>
-          <span v-if="props.column.field === 'katagori_id'">
-        {{ getKatagoriString(props.row.katagori_id) }}
-        </span>
+          <span v-if="props.column.field === 'islem'"> </span>
           <span v-else> {{ props.formattedRow[props.column.field] }} </span>
         </template>
       </vue-good-table>
@@ -47,25 +38,9 @@
         <b-card class="mb-3">
           <b-form-row>
             <b-form-group label="Name" class="col">
-              <b-input :disabled="isBusy" v-model.trim="model.isim"/>
+              <b-input :disabled="isBusy" v-model.trim="model.cinsi"/>
             </b-form-group>
           </b-form-row>
-          <b-form-row>
-            <b-form-group label="Surname" class="col">
-              <b-input :disabled="isBusy" v-model.trim="model.soyisim"/>
-            </b-form-group>
-          </b-form-row>
-          <b-form-row>
-            <b-form-group label="E-Mail" class="col">
-              <b-input :disabled="isBusy" v-model.trim="model.eposta"/>
-            </b-form-group>
-          </b-form-row>
-          <b-form-row>
-            <b-form-group label="Password" class="col">
-              <b-input :disabled="isBusy" v-model.trim="model.parola"/>
-            </b-form-group>
-          </b-form-row>
-          <hr/>
           <b-form-row>
             <b-form-group class="col text-right">
               <b-button @click="kaydetClick" :disabled="isBusy" variant="success">{{ "Kaydet" }}</b-button>
@@ -83,77 +58,46 @@ import 'vue-select/dist/vue-select.css';
 import axios from "axios";
 
 export default {
-  name: "user",
+  name: "Katagori",
   components: {
     navbar,
   },
   data() {
     return {
-      isim: "user",
+      isim: "Katagori",
       isBusy: false,
       katagoriler: [],
       columns: [
         {
-          label: 'Name',
-          field: 'isim',
+          label: 'Cinsi',
+          field: 'cinsi',
           sortable: true,
           filterOptions: {
             enabled: true,
-            placeholder: "Name",
+            placeholder: "Cinsi",
             filterValue: null,
             trigger: "enter",
           },
         },
-        {
-          label: 'Lastname',
-          field: 'soyisim',
-          sortable: true,
-          filterOptions: {
-            enabled: true,
-            placeholder: "Lastname",
-            filterValue: null,
-            trigger: "enter",
-          },
-        },
-        {
-          label: 'E-Mail',
-          field: 'eposta',
-          sortable: true,
-          filterOptions: {
-            enabled: true,
-            placeholder: "E-Mail",
-            filterValue: null,
-            filterDropdownItems: [],
-            trigger: "enter",
-          },
-        },
-        {
-          label: 'İşlemler',
-          field: 'islem',
-        },
+
       ],
       model: {
         id: 0,
-        isim: "",
-        soyisim: "",
-        eposta: "",
-        parola: "",
-        kullanici_kitap: [],
+        cinsi: "",
       },
       rows: [],
     }
   },
   async created() {
-    await this.getUsers();
+    await this.getKatagori();
   },
   methods: {
-    async getUsers() {
+    async getKatagori() {
       try {
-        let res = await axios.get("http://127.0.0.1:3000/user")
+        let res = await axios.get("http://127.0.0.1:3000/katagori")
         if (res.data) {
           this.rows = res.data
         }
-
       } catch (e) {
         this.$bvToast.toast("User not come", {
           title: 'Error',
@@ -162,11 +106,7 @@ export default {
       }
     },
     async yeniClick() {
-      this.model.isim = "";
-      this.model.soyisim = "";
-      this.model.eposta = "";
-      this.model.parola = "";
-      this.model.kullanici_kitap = [];
+      this.model.cinsi = "";
       this.$bvModal.show("editModal");
     },
     async duzenleClick(model) {
@@ -176,13 +116,13 @@ export default {
     async kaydetClick() {
       this.isBusy = true;
       try {
-        await axios.post("http://localhost:3000/user", this.model);
+        await axios.post("http://localhost:3000/katagori", this.model);
         this.$bvModal.hide("editModal");
-        this.$bvToast.toast("User Created", {
+        this.$bvToast.toast("Katagori Created", {
           title: 'Success',
           variant: 'success'
         })
-        await this.getUsers()
+        await this.getKatagori()
       } catch (e) {
         console.error(e);
       }
@@ -191,13 +131,12 @@ export default {
     async deleteClick(model) {
       this.isBusy = true
       try {
-        await axios.delete("http://localhost:3000/user", {data: model});
+        await axios.delete("http://localhost:3000/katagori", {data: model});
         await this.getUsers()
         this.$bvToast.toast("user Deleted", {
           title: 'Success',
           variant: 'success'
         })
-        await this.getUser();
       } catch (e) {
         this.$bvToast.toast(e, {
           title: 'Error',

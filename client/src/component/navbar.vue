@@ -24,6 +24,11 @@
                 <span class="nav-link nav-link-inner--text">Favories</span>
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link nav-link-icon" to="/katagori">
+                <span class="nav-link nav-link-inner--text">Katagori</span>
+              </router-link>
+            </li>
             <b-nav-item-dropdown right>
               <template v-slot:button-content>
                 <span class="nav-link-inner--text">Other</span>
