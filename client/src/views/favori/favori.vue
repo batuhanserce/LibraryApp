@@ -112,6 +112,7 @@ export default {
       try {
         let res = await axios.get("http://127.0.0.1:3000/favori")
         if (res.data) {
+          console.log(res)
           this.rows = res.data
         }
       } catch (e) {

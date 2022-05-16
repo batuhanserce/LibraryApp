@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	HOST     = "pg_db"
+	HOST     = "localhost"
 	DATABASE = "library"
 	USER     = "library"
 	PASSWORD = "library"

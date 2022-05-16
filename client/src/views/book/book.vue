@@ -106,9 +106,8 @@ export default {
         if (res.data) {
           this.book = res.data;
         }
-        await this.getFavori();
+        location.reload();
       } catch (e) {
-        console.log(e)
         this.$bvToast.toast("Book not come", {
           title: 'Error',
           variant: 'danger'
@@ -127,9 +126,8 @@ export default {
         if (res.data) {
           this.book = res.data;
         }
-        await this.getFavori()
+        location.reload();
       } catch (e) {
-        console.log(e)
         this.$bvToast.toast("Book not come", {
           title: 'Error',
           variant: 'danger'

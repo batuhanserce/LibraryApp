@@ -1,6 +1,6 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="success" class="navbar-horizontal">
-      <b-navbar-brand to="/">Liberary App</b-navbar-brand>
+      <b-navbar-brand to="/">Library App</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -31,11 +31,9 @@
             </li>
             <b-nav-item-dropdown right>
               <template v-slot:button-content>
-                <span class="nav-link-inner--text">Other</span>
+                <span class="nav-link-inner--text">{{ userName }}</span>
               </template>
-              <b-dropdown-item href="#">bla bla</b-dropdown-item>
-              <b-dropdown-item href="#">Another action</b-dropdown-item>
-              <b-dropdown-divider></b-dropdown-divider>
+
               <b-dropdown-item variant="danger" @click="cikis">Log out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-nav-form>
@@ -48,8 +46,13 @@
 <script>
 export default {
   name: "navbar",
+  userName :"",
+  created() {
+    this.userName = localStorage.getItem("name") +" "+localStorage.getItem("surname")
+  },
   methods:{
     cikis(){
+      localStorage.getItem("name")
       localStorage.removeItem("name")
       localStorage.removeItem("id")
       localStorage.removeItem("surname")
